@@ -1,7 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { motion } from 'framer-motion';
-import { Instagram, Youtube, Music2, CalendarDays, ArrowUpRight, Menu, X, Play, Mail, MessageCircle } from 'lucide-react';
+import { Music2, CalendarDays, ArrowUpRight, Menu, X, Play, Mail, MessageCircle } from 'lucide-react';
 import './styles.css';
 
 const shows = [
@@ -9,6 +9,14 @@ const shows = [
   { day: '26', month: 'SET', city: 'Campinas, SP', venue: 'Evento / Casa de shows' },
   { day: '10', month: 'OUT', city: 'Botucatu, SP', venue: 'Evento / Casa de shows' },
 ];
+
+function InstagramIcon() {
+  return <span aria-label="Instagram" role="img">◎</span>;
+}
+
+function YoutubeIcon() {
+  return <span aria-label="YouTube" role="img">▶</span>;
+}
 
 function App() {
   const [open, setOpen] = React.useState(false);
@@ -57,7 +65,7 @@ function App() {
           <p>Uma fase feita de canções que carregam verdade, intensidade e histórias para cantar junto. O projeto que marca o novo capítulo de Lucas Venutto.</p>
           <div className="platforms">
             <a href="#">Spotify <Music2 size={16}/></a>
-            <a href="#">YouTube <Youtube size={16}/></a>
+            <a href="#">YouTube <YoutubeIcon/></a>
             <a href="#">Apple Music <ArrowUpRight size={15}/></a>
           </div>
         </motion.div>
@@ -116,7 +124,7 @@ function App() {
 
     <footer>
       <div className="footerLogo">LUCAS <span>VENUTTO</span></div>
-      <div className="socials"><a href="#"><Instagram/></a><a href="#"><Youtube/></a><a href="#"><Music2/></a></div>
+      <div className="socials"><a href="#"><InstagramIcon/></a><a href="#"><YoutubeIcon/></a><a href="#"><Music2/></a></div>
       <p>© 2026 Lucas Venutto. Todos os direitos reservados.</p>
     </footer>
   </div>
