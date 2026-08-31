@@ -2,6 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { motion } from 'framer-motion';
 import { Music2, CalendarDays, ArrowUpRight, Menu, X, Play, Mail, MessageCircle } from 'lucide-react';
+import heroPhoto from './_DSC3661.jpg';
 import './styles.css';
 
 const shows = [
@@ -10,13 +11,8 @@ const shows = [
   { day: '10', month: 'OUT', city: 'Botucatu, SP', venue: 'Evento / Casa de shows' },
 ];
 
-function InstagramIcon() {
-  return <span aria-label="Instagram" role="img">◎</span>;
-}
-
-function YoutubeIcon() {
-  return <span aria-label="YouTube" role="img">▶</span>;
-}
+function InstagramIcon() { return <span aria-label="Instagram" role="img">◎</span>; }
+function YoutubeIcon() { return <span aria-label="YouTube" role="img">▶</span>; }
 
 function App() {
   const [open, setOpen] = React.useState(false);
@@ -38,6 +34,8 @@ function App() {
 
     <main>
       <section className="hero" id="inicio">
+        <div className="heroPhoto" style={{backgroundImage:`url(${heroPhoto})`}} />
+        <div className="heroOverlay" />
         <div className="heroGlow" />
         <div className="heroLines" />
         <motion.div className="heroContent" initial={{opacity:0,y:30}} animate={{opacity:1,y:0}} transition={{duration:.9}}>
@@ -56,77 +54,29 @@ function App() {
       <div className="ticker"><div>LUCAS VENUTTO • PRA SEMPRE COMEÇA AGORA • AO VIVO • AGENDA • NOVIDADES • LUCAS VENUTTO • PRA SEMPRE COMEÇA AGORA •</div></div>
 
       <section className="release section" id="musica">
-        <motion.div className="cover" {...fade}>
-          <div className="coverNoise"/><small>NOVO PROJETO</small><strong>PRA SEMPRE<br/>COMEÇA <i>AGORA</i></strong><span>LUCAS VENUTTO</span>
-        </motion.div>
+        <motion.div className="cover" {...fade}><div className="coverNoise"/><small>NOVO PROJETO</small><strong>PRA SEMPRE<br/>COMEÇA <i>AGORA</i></strong><span>LUCAS VENUTTO</span></motion.div>
         <motion.div className="releaseText" {...fade}>
-          <div className="kicker">NOVO PROJETO</div>
-          <h2>Pra Sempre<br/><em>Começa Agora</em></h2>
+          <div className="kicker">NOVO PROJETO</div><h2>Pra Sempre<br/><em>Começa Agora</em></h2>
           <p>Uma fase feita de canções que carregam verdade, intensidade e histórias para cantar junto. O projeto que marca o novo capítulo de Lucas Venutto.</p>
-          <div className="platforms">
-            <a href="#">Spotify <Music2 size={16}/></a>
-            <a href="#">YouTube <YoutubeIcon/></a>
-            <a href="#">Apple Music <ArrowUpRight size={15}/></a>
-          </div>
+          <div className="platforms"><a href="#">Spotify <Music2 size={16}/></a><a href="#">YouTube <YoutubeIcon/></a><a href="#">Apple Music <ArrowUpRight size={15}/></a></div>
         </motion.div>
       </section>
 
       <section className="agenda section" id="agenda">
         <motion.div className="sectionTitle" {...fade}><div><div className="kicker">NA ESTRADA</div><h2>Próximos <em>shows</em></h2></div><p>Agenda oficial de apresentações</p></motion.div>
-        <div className="showList">
-          {shows.map((s,i)=><motion.article className="show" key={s.day+s.city} {...fade} transition={{duration:.55, delay:i*.08}}>
-            <div className="showDate"><strong>{s.day}</strong><span>{s.month}</span></div>
-            <div><h3>{s.city}</h3><p>{s.venue}</p></div>
-            <a href="#contato">Informações <ArrowUpRight size={16}/></a>
-          </motion.article>)}
-        </div>
+        <div className="showList">{shows.map((s,i)=><motion.article className="show" key={s.day+s.city} {...fade} transition={{duration:.55, delay:i*.08}}><div className="showDate"><strong>{s.day}</strong><span>{s.month}</span></div><div><h3>{s.city}</h3><p>{s.venue}</p></div><a href="#contato">Informações <ArrowUpRight size={16}/></a></motion.article>)}</div>
       </section>
 
-      <section className="video" id="videos">
-        <div className="videoShade"/>
-        <motion.div className="videoInner" {...fade}>
-          <div className="kicker">AO VIVO</div>
-          <h2>Sinta o palco.<br/><em>Viva o momento.</em></h2>
-          <button className="play"><Play fill="currentColor"/></button>
-        </motion.div>
-      </section>
+      <section className="video" id="videos"><div className="videoShade"/><motion.div className="videoInner" {...fade}><div className="kicker">AO VIVO</div><h2>Sinta o palco.<br/><em>Viva o momento.</em></h2><button className="play"><Play fill="currentColor"/></button></motion.div></section>
 
-      <section className="story section" id="historia">
-        <motion.div className="storyText" {...fade}>
-          <div className="kicker">A HISTÓRIA</div>
-          <h2>Voz, estrada<br/>e <em>verdade.</em></h2>
-          <p>Lucas Venutto transforma vivências em interpretação. No palco, romantismo, modão, sofrência e energia se encontram em um show pensado para criar conexão de verdade com o público.</p>
-          <p className="muted">Esta área receberá a biografia oficial, os principais marcos da carreira e a história completa do artista.</p>
-        </motion.div>
-        <motion.div className="portrait" {...fade}><div className="portraitTag">FOTO OFICIAL<br/><span>LUCAS VENUTTO</span></div></motion.div>
-      </section>
+      <section className="story section" id="historia"><motion.div className="storyText" {...fade}><div className="kicker">A HISTÓRIA</div><h2>Voz, estrada<br/>e <em>verdade.</em></h2><p>Lucas Venutto transforma vivências em interpretação. No palco, romantismo, modão, sofrência e energia se encontram em um show pensado para criar conexão de verdade com o público.</p><p className="muted">Esta área receberá a biografia oficial, os principais marcos da carreira e a história completa do artista.</p></motion.div><motion.div className="portrait" {...fade}><div className="portraitTag">FOTO OFICIAL<br/><span>LUCAS VENUTTO</span></div></motion.div></section>
 
-      <section className="press section" id="imprensa">
-        <motion.div {...fade}>
-          <div className="kicker">IMPRENSA & PARCEIROS</div>
-          <h2>Material <em>oficial</em></h2>
-          <p>Release, fotos em alta resolução, logotipos e informações oficiais para imprensa, contratantes e parceiros.</p>
-          <a href="#" className="btn gold">Acessar press kit <ArrowUpRight size={16}/></a>
-        </motion.div>
-      </section>
+      <section className="press section" id="imprensa"><motion.div {...fade}><div className="kicker">IMPRENSA & PARCEIROS</div><h2>Material <em>oficial</em></h2><p>Release, fotos em alta resolução, logotipos e informações oficiais para imprensa, contratantes e parceiros.</p><a href="#" className="btn gold">Acessar press kit <ArrowUpRight size={16}/></a></motion.div></section>
 
-      <section className="contact" id="contato">
-        <motion.div {...fade}>
-          <div className="kicker dark">SHOWS & EVENTOS</div>
-          <h2>Leve Lucas Venutto<br/>para o seu <em>evento.</em></h2>
-        </motion.div>
-        <div className="contactButtons">
-          <a className="btn black" href="#"><MessageCircle size={17}/> WhatsApp</a>
-          <a className="btn darkOutline" href="mailto:contato@lucasvenutto.com.br"><Mail size={17}/> E-mail</a>
-        </div>
-      </section>
+      <section className="contact" id="contato"><motion.div {...fade}><div className="kicker dark">SHOWS & EVENTOS</div><h2>Leve Lucas Venutto<br/>para o seu <em>evento.</em></h2></motion.div><div className="contactButtons"><a className="btn black" href="#"><MessageCircle size={17}/> WhatsApp</a><a className="btn darkOutline" href="mailto:contato@lucasvenutto.com.br"><Mail size={17}/> E-mail</a></div></section>
     </main>
 
-    <footer>
-      <div className="footerLogo">LUCAS <span>VENUTTO</span></div>
-      <div className="socials"><a href="#"><InstagramIcon/></a><a href="#"><YoutubeIcon/></a><a href="#"><Music2/></a></div>
-      <p>© 2026 Lucas Venutto. Todos os direitos reservados.</p>
-    </footer>
+    <footer><div className="footerLogo">LUCAS <span>VENUTTO</span></div><div className="socials"><a href="#"><InstagramIcon/></a><a href="#"><YoutubeIcon/></a><a href="#"><Music2/></a></div><p>© 2026 Lucas Venutto. Todos os direitos reservados.</p></footer>
   </div>
 }
 
