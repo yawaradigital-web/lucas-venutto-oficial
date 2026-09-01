@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { motion } from 'framer-motion';
 import { Music2, CalendarDays, ArrowUpRight, Menu, X, Play, Mail, MessageCircle } from 'lucide-react';
 import heroPhoto from './_DSC3661.jpg';
+import artistLogo from './LOGO LUCAS VENUTTO (1).png';
 import './styles.css';
 
 const shows = [
@@ -34,13 +35,17 @@ function App() {
 
     <main>
       <section className="hero" id="inicio">
-        <div className="heroPhoto" style={{backgroundImage:`url(${heroPhoto})`}} />
-        <div className="heroOverlay" />
+        <div className="heroPhoto" style={{backgroundImage:`url(${heroPhoto})`, filter:'brightness(1.13) contrast(1.03) saturate(1.03)'}} />
+        <div className="heroOverlay" style={{background:'linear-gradient(90deg,rgba(3,3,3,.94) 0%,rgba(3,3,3,.76) 23%,rgba(3,3,3,.38) 47%,rgba(3,3,3,.06) 72%,rgba(3,3,3,.18) 100%),linear-gradient(0deg,rgba(5,5,5,.48) 0%,transparent 32%,rgba(0,0,0,.10) 100%)'}} />
         <div className="heroGlow" />
         <div className="heroLines" />
         <motion.div className="heroContent" initial={{opacity:0,y:30}} animate={{opacity:1,y:0}} transition={{duration:.9}}>
           <div className="kicker">SITE OFICIAL</div>
-          <h1><span>Lucas</span><em>Venutto</em></h1>
+          <img
+            src={artistLogo}
+            alt="Lucas Venutto"
+            style={{display:'block',width:'min(440px,70vw)',height:'auto',maxHeight:'390px',objectFit:'contain',objectPosition:'left center',margin:'-18px 0 14px -10px',filter:'drop-shadow(0 10px 28px rgba(0,0,0,.55))'}}
+          />
           <p>Uma nova fase. A mesma verdade.</p>
           <div className="heroButtons">
             <a href="#musica" className="btn gold">Ouça agora <ArrowUpRight size={16}/></a>
