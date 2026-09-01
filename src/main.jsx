@@ -7,6 +7,8 @@ import artistLogo from './LOGO LUCAS VENUTTO (1).png';
 import headerLogo from './logo lucas venutto.png';
 import './styles.css';
 
+const spotifyUrl = 'https://open.spotify.com/intl-pt/artist/6ZHnX3OMYw67tBIGVe9UVN?si=sUwUwSoTRO-_I8HXet58RQ';
+
 const shows = [
   { day: '12', month: 'SET', city: 'São Paulo, SP', venue: 'Evento / Casa de shows' },
   { day: '26', month: 'SET', city: 'Campinas, SP', venue: 'Evento / Casa de shows' },
@@ -45,7 +47,7 @@ function App() {
           <img src={artistLogo} alt="Lucas Venutto" style={{display:'block',width:'min(440px,70vw)',height:'auto',maxHeight:'390px',objectFit:'contain',objectPosition:'left center',margin:'-18px 0 14px -10px',filter:'drop-shadow(0 10px 28px rgba(0,0,0,.55))'}} />
           <p>Uma nova fase. A mesma verdade.</p>
           <div className="heroButtons">
-            <a href="#musica" className="btn gold">Ouça agora <ArrowUpRight size={16}/></a>
+            <a href={spotifyUrl} target="_blank" rel="noopener noreferrer" className="btn gold">Ouça agora <ArrowUpRight size={16}/></a>
             <a href="#agenda" className="btn outline">Agenda <CalendarDays size={16}/></a>
           </div>
         </motion.div>
@@ -60,7 +62,7 @@ function App() {
         <motion.div className="releaseText" {...fade}>
           <div className="kicker">NOVO PROJETO</div><h2>Pra Sempre<br/><em>Começa Agora</em></h2>
           <p>Uma fase feita de canções que carregam verdade, intensidade e histórias para cantar junto. O projeto que marca o novo capítulo de Lucas Venutto.</p>
-          <div className="platforms"><a href="#">Spotify <Music2 size={16}/></a><a href="#">YouTube <YoutubeIcon/></a><a href="#">Apple Music <ArrowUpRight size={15}/></a></div>
+          <div className="platforms"><a href={spotifyUrl} target="_blank" rel="noopener noreferrer">Spotify <Music2 size={16}/></a><a href="#">YouTube <YoutubeIcon/></a><a href="#">Apple Music <ArrowUpRight size={15}/></a></div>
         </motion.div>
       </section>
 
@@ -78,7 +80,7 @@ function App() {
       <section className="contact" id="contato"><motion.div {...fade}><div className="kicker dark">SHOWS & EVENTOS</div><h2>Leve Lucas Venutto<br/>para o seu <em>evento.</em></h2></motion.div><div className="contactButtons"><a className="btn black" href="#"><MessageCircle size={17}/> WhatsApp</a><a className="btn darkOutline" href="mailto:contato@lucasvenutto.com.br"><Mail size={17}/> E-mail</a></div></section>
     </main>
 
-    <footer><div className="footerLogo">LUCAS <span>VENUTTO</span></div><div className="socials"><a href="#"><InstagramIcon/></a><a href="#"><YoutubeIcon/></a><a href="#"><Music2/></a></div><p>© 2026 Lucas Venutto. Todos os direitos reservados.</p></footer>
+    <footer><div className="footerLogo">LUCAS <span>VENUTTO</span></div><div className="socials"><a href="#"><InstagramIcon/></a><a href="#"><YoutubeIcon/></a><a href={spotifyUrl} target="_blank" rel="noopener noreferrer" aria-label="Spotify"><Music2/></a></div><p>© 2026 Lucas Venutto. Todos os direitos reservados.</p></footer>
   </div>
 }
 
