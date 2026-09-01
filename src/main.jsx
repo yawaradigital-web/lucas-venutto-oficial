@@ -9,6 +9,7 @@ import './styles.css';
 
 const spotifyUrl = 'https://open.spotify.com/intl-pt/artist/6ZHnX3OMYw67tBIGVe9UVN?si=sUwUwSoTRO-_I8HXet58RQ';
 const youtubeUrl = 'https://www.youtube.com/channel/UCxY-DvH4QjXM2q_FUtffiJg';
+const appleMusicUrl = 'https://music.apple.com/co/artist/lucas-venutto/6784924650';
 
 const shows = [
   { day: '12', month: 'SET', city: 'São Paulo, SP', venue: 'Evento / Casa de shows' },
@@ -63,7 +64,7 @@ function App() {
         <motion.div className="releaseText" {...fade}>
           <div className="kicker">NOVO PROJETO</div><h2>Pra Sempre<br/><em>Começa Agora</em></h2>
           <p>Uma fase feita de canções que carregam verdade, intensidade e histórias para cantar junto. O projeto que marca o novo capítulo de Lucas Venutto.</p>
-          <div className="platforms"><a href={spotifyUrl} target="_blank" rel="noopener noreferrer">Spotify <Music2 size={16}/></a><a href={youtubeUrl} target="_blank" rel="noopener noreferrer">YouTube <YoutubeIcon/></a><a href="#">Apple Music <ArrowUpRight size={15}/></a></div>
+          <div className="platforms"><a href={spotifyUrl} target="_blank" rel="noopener noreferrer">Spotify <Music2 size={16}/></a><a href={youtubeUrl} target="_blank" rel="noopener noreferrer">YouTube <YoutubeIcon/></a><a href={appleMusicUrl} target="_blank" rel="noopener noreferrer">Apple Music <ArrowUpRight size={15}/></a></div>
         </motion.div>
       </section>
 
