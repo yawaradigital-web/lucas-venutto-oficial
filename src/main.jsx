@@ -10,80 +10,23 @@ import './styles.css';
 const spotifyUrl = 'https://open.spotify.com/intl-pt/artist/6ZHnX3OMYw67tBIGVe9UVN?si=sUwUwSoTRO-_I8HXet58RQ';
 const youtubeUrl = 'https://www.youtube.com/channel/UCxY-DvH4QjXM2q_FUtffiJg';
 const appleMusicUrl = 'https://music.apple.com/co/artist/lucas-venutto/6784924650';
+const whatsappUrl = 'https://wa.me/5511915501487?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20para%20contratar%20o%20show%20do%20Lucas%20Venutto.';
 
 const shows = [
   { day: '12', month: 'SET', city: 'São Paulo, SP', venue: 'Evento / Casa de shows' },
   { day: '26', month: 'SET', city: 'Campinas, SP', venue: 'Evento / Casa de shows' },
   { day: '10', month: 'OUT', city: 'Botucatu, SP', venue: 'Evento / Casa de shows' },
 ];
-
-function InstagramIcon() { return <span aria-label="Instagram" role="img">◎</span>; }
-function YoutubeIcon() { return <span aria-label="YouTube" role="img">▶</span>; }
-
-function App() {
-  const [open, setOpen] = React.useState(false);
-  const fade = { initial: { opacity: 0, y: 28 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: .25 }, transition: { duration: .7 } };
-
-  return <div className="app">
-    <header className="topbar">
-      <a href="#inicio" className="logo headerLogoLink"><img className="headerLogoImg" src={headerLogo} alt="Lucas Venutto" /></a>
-      <nav className={open ? 'nav open' : 'nav'}>
-        <a href="#agenda" onClick={()=>setOpen(false)}>Agenda</a>
-        <a href="#musica" onClick={()=>setOpen(false)}>Música</a>
-        <a href="#videos" onClick={()=>setOpen(false)}>Vídeos</a>
-        <a href="#historia" onClick={()=>setOpen(false)}>História</a>
-        <a href="#imprensa" onClick={()=>setOpen(false)}>Imprensa</a>
-        <a className="navCta" href="#contato" onClick={()=>setOpen(false)}>Contrate</a>
-      </nav>
-      <button className="menuBtn" onClick={()=>setOpen(!open)} aria-label="Menu">{open ? <X/> : <Menu/>}</button>
-    </header>
-
-    <main>
-      <section className="hero" id="inicio">
-        <div className="heroPhoto" style={{backgroundImage:`url(${heroPhoto})`, filter:'brightness(1.13) contrast(1.03) saturate(1.03)'}} />
-        <div className="heroOverlay" style={{background:'linear-gradient(90deg,rgba(3,3,3,.94) 0%,rgba(3,3,3,.76) 23%,rgba(3,3,3,.38) 47%,rgba(3,3,3,.06) 72%,rgba(3,3,3,.18) 100%),linear-gradient(0deg,rgba(5,5,5,.48) 0%,transparent 32%,rgba(0,0,0,.10) 100%)'}} />
-        <div className="heroGlow" />
-        <div className="heroLines" />
-        <motion.div className="heroContent" initial={{opacity:0,y:30}} animate={{opacity:1,y:0}} transition={{duration:.9}}>
-          <div className="kicker">SITE OFICIAL</div>
-          <img src={artistLogo} alt="Lucas Venutto" style={{display:'block',width:'min(440px,70vw)',height:'auto',maxHeight:'390px',objectFit:'contain',objectPosition:'left center',margin:'-18px 0 14px -10px',filter:'drop-shadow(0 10px 28px rgba(0,0,0,.55))'}} />
-          <p>Uma nova fase. A mesma verdade.</p>
-          <div className="heroButtons">
-            <a href={spotifyUrl} target="_blank" rel="noopener noreferrer" className="btn gold">Ouça agora <ArrowUpRight size={16}/></a>
-            <a href="#agenda" className="btn outline">Agenda <CalendarDays size={16}/></a>
-          </div>
-        </motion.div>
-        <div className="heroStamp">PRA SEMPRE<br/>COMEÇA AGORA</div>
-        <div className="heroScroll">ROLE PARA DESCOBRIR <span>↓</span></div>
-      </section>
-
-      <div className="ticker"><div>LUCAS VENUTTO • PRA SEMPRE COMEÇA AGORA • AO VIVO • AGENDA • NOVIDADES • LUCAS VENUTTO • PRA SEMPRE COMEÇA AGORA •</div></div>
-
-      <section className="release section" id="musica">
-        <motion.div className="cover" {...fade}><div className="coverNoise"/><small>NOVO PROJETO</small><strong>PRA SEMPRE<br/>COMEÇA <i>AGORA</i></strong><span>LUCAS VENUTTO</span></motion.div>
-        <motion.div className="releaseText" {...fade}>
-          <div className="kicker">NOVO PROJETO</div><h2>Pra Sempre<br/><em>Começa Agora</em></h2>
-          <p>Uma fase feita de canções que carregam verdade, intensidade e histórias para cantar junto. O projeto que marca o novo capítulo de Lucas Venutto.</p>
-          <div className="platforms"><a href={spotifyUrl} target="_blank" rel="noopener noreferrer">Spotify <Music2 size={16}/></a><a href={youtubeUrl} target="_blank" rel="noopener noreferrer">YouTube <YoutubeIcon/></a><a href={appleMusicUrl} target="_blank" rel="noopener noreferrer">Apple Music <ArrowUpRight size={15}/></a></div>
-        </motion.div>
-      </section>
-
-      <section className="agenda section" id="agenda">
-        <motion.div className="sectionTitle" {...fade}><div><div className="kicker">NA ESTRADA</div><h2>Próximos <em>shows</em></h2></div><p>Agenda oficial de apresentações</p></motion.div>
-        <div className="showList">{shows.map((s,i)=><motion.article className="show" key={s.day+s.city} {...fade} transition={{duration:.55, delay:i*.08}}><div className="showDate"><strong>{s.day}</strong><span>{s.month}</span></div><div><h3>{s.city}</h3><p>{s.venue}</p></div><a href="#contato">Informações <ArrowUpRight size={16}/></a></motion.article>)}</div>
-      </section>
-
-      <section className="video" id="videos"><div className="videoShade"/><motion.div className="videoInner" {...fade}><div className="kicker">AO VIVO</div><h2>Sinta o palco.<br/><em>Viva o momento.</em></h2><a className="play" href={youtubeUrl} target="_blank" rel="noopener noreferrer" aria-label="YouTube"><Play fill="currentColor"/></a></motion.div></section>
-
-      <section className="story section" id="historia"><motion.div className="storyText" {...fade}><div className="kicker">A HISTÓRIA</div><h2>Voz, estrada<br/>e <em>verdade.</em></h2><p>Lucas Venutto transforma vivências em interpretação. No palco, romantismo, modão, sofrência e energia se encontram em um show pensado para criar conexão de verdade com o público.</p><p className="muted">Esta área receberá a biografia oficial, os principais marcos da carreira e a história completa do artista.</p></motion.div><motion.div className="portrait" {...fade}><div className="portraitTag">FOTO OFICIAL<br/><span>LUCAS VENUTTO</span></div></motion.div></section>
-
-      <section className="press section" id="imprensa"><motion.div {...fade}><div className="kicker">IMPRENSA & PARCEIROS</div><h2>Material <em>oficial</em></h2><p>Release, fotos em alta resolução, logotipos e informações oficiais para imprensa, contratantes e parceiros.</p><a href="#" className="btn gold">Acessar press kit <ArrowUpRight size={16}/></a></motion.div></section>
-
-      <section className="contact" id="contato"><motion.div {...fade}><div className="kicker dark">SHOWS & EVENTOS</div><h2>Leve Lucas Venutto<br/>para o seu <em>evento.</em></h2></motion.div><div className="contactButtons"><a className="btn black" href="#"><MessageCircle size={17}/> WhatsApp</a><a className="btn darkOutline" href="mailto:contato@lucasvenutto.com.br"><Mail size={17}/> E-mail</a></div></section>
-    </main>
-
-    <footer><div className="footerLogo">LUCAS <span>VENUTTO</span></div><div className="socials"><a href="#"><InstagramIcon/></a><a href={youtubeUrl} target="_blank" rel="noopener noreferrer" aria-label="YouTube"><YoutubeIcon/></a><a href={spotifyUrl} target="_blank" rel="noopener noreferrer" aria-label="Spotify"><Music2/></a></div><p>© 2026 Lucas Venutto. Todos os direitos reservados.</p></footer>
-  </div>
-}
-
+function InstagramIcon(){return <span aria-label="Instagram" role="img">◎</span>;} function YoutubeIcon(){return <span aria-label="YouTube" role="img">▶</span>;}
+function App(){const [open,setOpen]=React.useState(false);const fade={initial:{opacity:0,y:28},whileInView:{opacity:1,y:0},viewport:{once:true,amount:.25},transition:{duration:.7}};return <div className="app">
+<header className="topbar"><a href="#inicio" className="logo headerLogoLink"><img className="headerLogoImg" src={headerLogo} alt="Lucas Venutto"/></a><nav className={open?'nav open':'nav'}><a href="#agenda" onClick={()=>setOpen(false)}>Agenda</a><a href="#musica" onClick={()=>setOpen(false)}>Música</a><a href="#videos" onClick={()=>setOpen(false)}>Vídeos</a><a href="#historia" onClick={()=>setOpen(false)}>História</a><a href="#imprensa" onClick={()=>setOpen(false)}>Imprensa</a><a className="navCta" href={whatsappUrl} target="_blank" rel="noopener noreferrer" onClick={()=>setOpen(false)}>Contrate</a></nav><button className="menuBtn" onClick={()=>setOpen(!open)} aria-label="Menu">{open?<X/>:<Menu/>}</button></header>
+<main><section className="hero" id="inicio"><div className="heroPhoto" style={{backgroundImage:`url(${heroPhoto})`,filter:'brightness(1.13) contrast(1.03) saturate(1.03)'}}/><div className="heroOverlay" style={{background:'linear-gradient(90deg,rgba(3,3,3,.94) 0%,rgba(3,3,3,.76) 23%,rgba(3,3,3,.38) 47%,rgba(3,3,3,.06) 72%,rgba(3,3,3,.18) 100%),linear-gradient(0deg,rgba(5,5,5,.48) 0%,transparent 32%,rgba(0,0,0,.10) 100%)'}}/><div className="heroGlow"/><div className="heroLines"/><motion.div className="heroContent" initial={{opacity:0,y:30}} animate={{opacity:1,y:0}} transition={{duration:.9}}><div className="kicker">SITE OFICIAL</div><img src={artistLogo} alt="Lucas Venutto" style={{display:'block',width:'min(440px,70vw)',height:'auto',maxHeight:'390px',objectFit:'contain',objectPosition:'left center',margin:'-18px 0 14px -10px',filter:'drop-shadow(0 10px 28px rgba(0,0,0,.55))'}}/><p>Uma nova fase. A mesma verdade.</p><div className="heroButtons"><a href={spotifyUrl} target="_blank" rel="noopener noreferrer" className="btn gold">Ouça agora <ArrowUpRight size={16}/></a><a href="#agenda" className="btn outline">Agenda <CalendarDays size={16}/></a></div></motion.div><div className="heroStamp">PRA SEMPRE<br/>COMEÇA AGORA</div><div className="heroScroll">ROLE PARA DESCOBRIR <span>↓</span></div></section>
+<div className="ticker"><div>LUCAS VENUTTO • PRA SEMPRE COMEÇA AGORA • AO VIVO • AGENDA • NOVIDADES • LUCAS VENUTTO • PRA SEMPRE COMEÇA AGORA •</div></div>
+<section className="release section" id="musica"><motion.div className="cover" {...fade}><div className="coverNoise"/><small>NOVO PROJETO</small><strong>PRA SEMPRE<br/>COMEÇA <i>AGORA</i></strong><span>LUCAS VENUTTO</span></motion.div><motion.div className="releaseText" {...fade}><div className="kicker">NOVO PROJETO</div><h2>Pra Sempre<br/><em>Começa Agora</em></h2><p>Uma fase feita de canções que carregam verdade, intensidade e histórias para cantar junto. O projeto que marca o novo capítulo de Lucas Venutto.</p><div className="platforms"><a href={spotifyUrl} target="_blank" rel="noopener noreferrer">Spotify <Music2 size={16}/></a><a href={youtubeUrl} target="_blank" rel="noopener noreferrer">YouTube <YoutubeIcon/></a><a href={appleMusicUrl} target="_blank" rel="noopener noreferrer">Apple Music <ArrowUpRight size={15}/></a></div></motion.div></section>
+<section className="agenda section" id="agenda"><motion.div className="sectionTitle" {...fade}><div><div className="kicker">NA ESTRADA</div><h2>Próximos <em>shows</em></h2></div><p>Agenda oficial de apresentações</p></motion.div><div className="showList">{shows.map((s,i)=><motion.article className="show" key={s.day+s.city} {...fade} transition={{duration:.55,delay:i*.08}}><div className="showDate"><strong>{s.day}</strong><span>{s.month}</span></div><div><h3>{s.city}</h3><p>{s.venue}</p></div><a href={whatsappUrl} target="_blank" rel="noopener noreferrer">Informações <ArrowUpRight size={16}/></a></motion.article>)}</div></section>
+<section className="video" id="videos"><div className="videoShade"/><motion.div className="videoInner" {...fade}><div className="kicker">AO VIVO</div><h2>Sinta o palco.<br/><em>Viva o momento.</em></h2><a className="play" href={youtubeUrl} target="_blank" rel="noopener noreferrer" aria-label="YouTube"><Play fill="currentColor"/></a></motion.div></section>
+<section className="story section" id="historia"><motion.div className="storyText" {...fade}><div className="kicker">A HISTÓRIA</div><h2>Voz, estrada<br/>e <em>verdade.</em></h2><p>Lucas Venutto transforma vivências em interpretação. No palco, romantismo, modão, sofrência e energia se encontram em um show pensado para criar conexão de verdade com o público.</p><p className="muted">Esta área receberá a biografia oficial, os principais marcos da carreira e a história completa do artista.</p></motion.div><motion.div className="portrait" {...fade}><div className="portraitTag">FOTO OFICIAL<br/><span>LUCAS VENUTTO</span></div></motion.div></section>
+<section className="press section" id="imprensa"><motion.div {...fade}><div className="kicker">IMPRENSA & PARCEIROS</div><h2>Material <em>oficial</em></h2><p>Release, fotos em alta resolução, logotipos e informações oficiais para imprensa, contratantes e parceiros.</p><a href="#" className="btn gold">Acessar press kit <ArrowUpRight size={16}/></a></motion.div></section>
+<section className="contact" id="contato"><motion.div {...fade}><div className="kicker dark">SHOWS & EVENTOS</div><h2>Leve Lucas Venutto<br/>para o seu <em>evento.</em></h2></motion.div><div className="contactButtons"><a className="btn black" href={whatsappUrl} target="_blank" rel="noopener noreferrer"><MessageCircle size={17}/> WhatsApp</a><a className="btn darkOutline" href="mailto:contato@lucasvenutto.com.br"><Mail size={17}/> E-mail</a></div></section></main>
+<footer><div className="footerLogo">LUCAS <span>VENUTTO</span></div><div className="socials"><a href="#"><InstagramIcon/></a><a href={youtubeUrl} target="_blank" rel="noopener noreferrer" aria-label="YouTube"><YoutubeIcon/></a><a href={spotifyUrl} target="_blank" rel="noopener noreferrer" aria-label="Spotify"><Music2/></a></div><p>© 2026 Lucas Venutto. Todos os direitos reservados.</p></footer></div>}
 createRoot(document.getElementById('root')).render(<App/>);
