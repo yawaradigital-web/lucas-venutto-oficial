@@ -8,6 +8,7 @@ import headerLogo from './logo lucas venutto.png';
 import './styles.css';
 
 const spotifyUrl = 'https://open.spotify.com/intl-pt/artist/6ZHnX3OMYw67tBIGVe9UVN?si=sUwUwSoTRO-_I8HXet58RQ';
+const youtubeUrl = 'https://www.youtube.com/channel/UCxY-DvH4QjXM2q_FUtffiJg';
 
 const shows = [
   { day: '12', month: 'SET', city: 'São Paulo, SP', venue: 'Evento / Casa de shows' },
@@ -62,7 +63,7 @@ function App() {
         <motion.div className="releaseText" {...fade}>
           <div className="kicker">NOVO PROJETO</div><h2>Pra Sempre<br/><em>Começa Agora</em></h2>
           <p>Uma fase feita de canções que carregam verdade, intensidade e histórias para cantar junto. O projeto que marca o novo capítulo de Lucas Venutto.</p>
-          <div className="platforms"><a href={spotifyUrl} target="_blank" rel="noopener noreferrer">Spotify <Music2 size={16}/></a><a href="#">YouTube <YoutubeIcon/></a><a href="#">Apple Music <ArrowUpRight size={15}/></a></div>
+          <div className="platforms"><a href={spotifyUrl} target="_blank" rel="noopener noreferrer">Spotify <Music2 size={16}/></a><a href={youtubeUrl} target="_blank" rel="noopener noreferrer">YouTube <YoutubeIcon/></a><a href="#">Apple Music <ArrowUpRight size={15}/></a></div>
         </motion.div>
       </section>
 
@@ -71,7 +72,7 @@ function App() {
         <div className="showList">{shows.map((s,i)=><motion.article className="show" key={s.day+s.city} {...fade} transition={{duration:.55, delay:i*.08}}><div className="showDate"><strong>{s.day}</strong><span>{s.month}</span></div><div><h3>{s.city}</h3><p>{s.venue}</p></div><a href="#contato">Informações <ArrowUpRight size={16}/></a></motion.article>)}</div>
       </section>
 
-      <section className="video" id="videos"><div className="videoShade"/><motion.div className="videoInner" {...fade}><div className="kicker">AO VIVO</div><h2>Sinta o palco.<br/><em>Viva o momento.</em></h2><button className="play"><Play fill="currentColor"/></button></motion.div></section>
+      <section className="video" id="videos"><div className="videoShade"/><motion.div className="videoInner" {...fade}><div className="kicker">AO VIVO</div><h2>Sinta o palco.<br/><em>Viva o momento.</em></h2><a className="play" href={youtubeUrl} target="_blank" rel="noopener noreferrer" aria-label="YouTube"><Play fill="currentColor"/></a></motion.div></section>
 
       <section className="story section" id="historia"><motion.div className="storyText" {...fade}><div className="kicker">A HISTÓRIA</div><h2>Voz, estrada<br/>e <em>verdade.</em></h2><p>Lucas Venutto transforma vivências em interpretação. No palco, romantismo, modão, sofrência e energia se encontram em um show pensado para criar conexão de verdade com o público.</p><p className="muted">Esta área receberá a biografia oficial, os principais marcos da carreira e a história completa do artista.</p></motion.div><motion.div className="portrait" {...fade}><div className="portraitTag">FOTO OFICIAL<br/><span>LUCAS VENUTTO</span></div></motion.div></section>
 
@@ -80,7 +81,7 @@ function App() {
       <section className="contact" id="contato"><motion.div {...fade}><div className="kicker dark">SHOWS & EVENTOS</div><h2>Leve Lucas Venutto<br/>para o seu <em>evento.</em></h2></motion.div><div className="contactButtons"><a className="btn black" href="#"><MessageCircle size={17}/> WhatsApp</a><a className="btn darkOutline" href="mailto:contato@lucasvenutto.com.br"><Mail size={17}/> E-mail</a></div></section>
     </main>
 
-    <footer><div className="footerLogo">LUCAS <span>VENUTTO</span></div><div className="socials"><a href="#"><InstagramIcon/></a><a href="#"><YoutubeIcon/></a><a href={spotifyUrl} target="_blank" rel="noopener noreferrer" aria-label="Spotify"><Music2/></a></div><p>© 2026 Lucas Venutto. Todos os direitos reservados.</p></footer>
+    <footer><div className="footerLogo">LUCAS <span>VENUTTO</span></div><div className="socials"><a href="#"><InstagramIcon/></a><a href={youtubeUrl} target="_blank" rel="noopener noreferrer" aria-label="YouTube"><YoutubeIcon/></a><a href={spotifyUrl} target="_blank" rel="noopener noreferrer" aria-label="Spotify"><Music2/></a></div><p>© 2026 Lucas Venutto. Todos os direitos reservados.</p></footer>
   </div>
 }
 
