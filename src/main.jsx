@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Music2, CalendarDays, ArrowUpRight, Menu, X, Play, Mail, MessageCircle } from 'lucide-react';
 import heroPhoto from './_DSC3661.jpg';
 import artistLogo from './LOGO LUCAS VENUTTO (1).png';
+import headerLogo from './logo lucas venutto.png';
 import './styles.css';
 
 const shows = [
@@ -21,7 +22,7 @@ function App() {
 
   return <div className="app">
     <header className="topbar">
-      <a href="#inicio" className="logo">LUCAS <span>VENUTTO</span></a>
+      <a href="#inicio" className="logo headerLogoLink"><img className="headerLogoImg" src={headerLogo} alt="Lucas Venutto" /></a>
       <nav className={open ? 'nav open' : 'nav'}>
         <a href="#agenda" onClick={()=>setOpen(false)}>Agenda</a>
         <a href="#musica" onClick={()=>setOpen(false)}>Música</a>
@@ -41,11 +42,7 @@ function App() {
         <div className="heroLines" />
         <motion.div className="heroContent" initial={{opacity:0,y:30}} animate={{opacity:1,y:0}} transition={{duration:.9}}>
           <div className="kicker">SITE OFICIAL</div>
-          <img
-            src={artistLogo}
-            alt="Lucas Venutto"
-            style={{display:'block',width:'min(440px,70vw)',height:'auto',maxHeight:'390px',objectFit:'contain',objectPosition:'left center',margin:'-18px 0 14px -10px',filter:'drop-shadow(0 10px 28px rgba(0,0,0,.55))'}}
-          />
+          <img src={artistLogo} alt="Lucas Venutto" style={{display:'block',width:'min(440px,70vw)',height:'auto',maxHeight:'390px',objectFit:'contain',objectPosition:'left center',margin:'-18px 0 14px -10px',filter:'drop-shadow(0 10px 28px rgba(0,0,0,.55))'}} />
           <p>Uma nova fase. A mesma verdade.</p>
           <div className="heroButtons">
             <a href="#musica" className="btn gold">Ouça agora <ArrowUpRight size={16}/></a>
