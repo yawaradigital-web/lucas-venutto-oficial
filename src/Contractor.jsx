@@ -1,6 +1,7 @@
 import React from 'react';
 import { BriefcaseBusiness, CalendarDays, FileText, LogIn, LogOut, MapPin, Save, TicketCheck, UserPlus } from 'lucide-react';
 import { contractorLogin, contractorLogout, contractorSignUp, fetchContractorJobs, fetchContractorProfile, getContractorSession, updateContractorProfile } from './contractorStore';
+import './Contractor.css';
 
 function Field({label,value,onChange,type='text'}){return <label className="contractorField"><span>{label}</span><input type={type} value={value||''} onChange={e=>onChange(e.target.value)}/></label>}
 const statusLabel={lead:'Consulta',proposal:'Proposta',negotiation:'Negociação',contract:'Contrato',confirmed:'Confirmado',completed:'Realizado',cancelled:'Cancelado'};
