@@ -1,18 +1,74 @@
 import { defaultContent } from './content';
 
 const STORAGE_KEY='lucas-venutto-site-content-v2';
+const SESSION_KEY='lucas-venutto-admin-session';
+const SUPABASE_URL='https://rdcvvxmuikmbxaojchvj.supabase.co';
+const SUPABASE_KEY='sb_publishable_LjIzoDXWLK9bZv6SjUFdew_RVi0wuM0';
+
+function mergeContent(remote={}){
+  const out={...defaultContent,...remote};
+  for(const key of Object.keys(defaultContent)){
+    if(defaultContent[key] && typeof defaultContent[key]==='object' && !Array.isArray(defaultContent[key])){
+      out[key]={...defaultContent[key],...(remote[key]||{})};
+    }
+  }
+  return out;
+}
 
 export function loadContent(){
   try{
     const raw=localStorage.getItem(STORAGE_KEY);
-    return raw?{...defaultContent,...JSON.parse(raw)}:defaultContent;
+    return raw?mergeContent(JSON.parse(raw)):defaultContent;
   }catch{return defaultContent;}
 }
 
-export function saveContent(content){
+export async function fetchRemoteContent(){
+  try{
+    const res=await fetch(`${SUPABASE_URL}/rest/v1/lucas_site_content?id=eq.main&select=content`,{
+      headers:{apikey:SUPABASE_KEY,Authorization:`Bearer ${SUPABASE_KEY}`}
+    });
+    if(!res.ok)throw new Error('Falha ao carregar CMS');
+    const rows=await res.json();
+    const content=mergeContent(rows?.[0]?.content||{});
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(content));
+    window.dispatchEvent(new CustomEvent('lucas-content-updated',{detail:content}));
+    return content;
+  }catch{
+    return loadContent();
+  }
+}
+
+export function getAdminSession(){
+  try{return JSON.parse(localStorage.getItem(SESSION_KEY)||'null')}catch{return null}
+}
+
+export async function adminLogin(email,password){
+  const res=await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`,{
+    method:'POST',
+    headers:{apikey:SUPABASE_KEY,'Content-Type':'application/json'},
+    body:JSON.stringify({email,password})
+  });
+  const data=await res.json();
+  if(!res.ok)throw new Error(data?.error_description||data?.msg||'Login inválido');
+  const session={access_token:data.access_token,refresh_token:data.refresh_token,user:data.user,expires_at:Date.now()+((data.expires_in||3600)*1000)};
+  localStorage.setItem(SESSION_KEY,JSON.stringify(session));
+  return session;
+}
+
+export function adminLogout(){localStorage.removeItem(SESSION_KEY)}
+
+export async function saveContent(content){
   localStorage.setItem(STORAGE_KEY,JSON.stringify(content));
   window.dispatchEvent(new CustomEvent('lucas-content-updated',{detail:content}));
-  return content;
+  const session=getAdminSession();
+  if(!session?.access_token)return {content,remote:false};
+  const res=await fetch(`${SUPABASE_URL}/rest/v1/lucas_site_content?id=eq.main`,{
+    method:'PATCH',
+    headers:{apikey:SUPABASE_KEY,Authorization:`Bearer ${session.access_token}`,'Content-Type':'application/json',Prefer:'return=representation'},
+    body:JSON.stringify({content,updated_by:session.user?.id||null,updated_at:new Date().toISOString()})
+  });
+  if(!res.ok){const err=await res.text();throw new Error(err||'Não foi possível publicar as alterações');}
+  return {content,remote:true};
 }
 
 export function resetContent(){
@@ -26,4 +82,18 @@ export function subscribeContent(callback){
   window.addEventListener('lucas-content-updated',handler);
   window.addEventListener('storage',handler);
   return()=>{window.removeEventListener('lucas-content-updated',handler);window.removeEventListener('storage',handler);};
+}
+
+export async function uploadMedia(file,folder='uploads'){
+  const session=getAdminSession();
+  if(!session?.access_token)throw new Error('Faça login para enviar arquivos.');
+  const safe=(file.name||'arquivo').replace(/[^a-zA-Z0-9._-]/g,'-');
+  const path=`${folder}/${Date.now()}-${safe}`;
+  const res=await fetch(`${SUPABASE_URL}/storage/v1/object/lucas-site-media/${path}`,{
+    method:'POST',
+    headers:{apikey:SUPABASE_KEY,Authorization:`Bearer ${session.access_token}`,'Content-Type':file.type||'application/octet-stream','x-upsert':'false'},
+    body:file
+  });
+  if(!res.ok){const err=await res.text();throw new Error(err||'Falha no upload');}
+  return `${SUPABASE_URL}/storage/v1/object/public/lucas-site-media/${path}`;
 }
