@@ -4,6 +4,13 @@ export const defaultContent = {
     tagline: 'Uma nova fase. A mesma verdade.',
     accent: '#c5a164'
   },
+  media: {
+    headerLogoUrl: '',
+    heroLogoUrl: '',
+    heroImageUrl: '',
+    storyImageUrl: '',
+    featuredVideoUrl: ''
+  },
   hero: {
     eyebrow: 'NOVO SINGLE',
     title: 'Sofredor à Moda Antiga',
