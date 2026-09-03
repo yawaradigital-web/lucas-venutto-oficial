@@ -8,7 +8,7 @@ import featuredVideo from './WhatsApp Video 2026-09-01 at 12.24.27.mp4';
 import artistLogo from './LOGO LUCAS VENUTTO (1).png';
 import headerLogo from './logo lucas venutto.png';
 import Admin from './Admin';
-import { loadContent, subscribeContent } from './contentStore';
+import { loadContent, subscribeContent, fetchRemoteContent } from './contentStore';
 import './styles.css';
 
 const monthNames=['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'];
@@ -20,7 +20,7 @@ function dateParts(date){if(!date)return {day:'--',month:'---'};const d=new Date
 function App(){
   const[content,setContent]=React.useState(loadContent());const[open,setOpen]=React.useState(false);const[playing,setPlaying]=React.useState(false);const[spotifyReady,setSpotifyReady]=React.useState(false);const controllerRef=React.useRef(null);
   const headerLogoSrc=content.media?.headerLogoUrl||headerLogo;const heroLogoSrc=content.media?.heroLogoUrl||artistLogo;const heroPhotoSrc=content.media?.heroImageUrl||heroPhoto;const storyPhotoSrc=content.media?.storyImageUrl||storyPhoto;const featuredVideoSrc=content.media?.featuredVideoUrl||featuredVideo;
-  React.useEffect(()=>subscribeContent(setContent),[]);
+  React.useEffect(()=>{const unsub=subscribeContent(setContent);fetchRemoteContent().then(setContent);return unsub},[]);
   React.useEffect(()=>{let cancelled=false;const init=(api)=>{if(cancelled||controllerRef.current)return;const el=document.getElementById('spotify-controller');if(!el)return;api.createController(el,{uri:content.music.spotifyArtistUri,width:'100%',height:80},c=>{controllerRef.current=c;setSpotifyReady(true);c.addListener('playback_update',e=>e?.data&&setPlaying(!e.data.isPaused));});};if(window.SpotifyIframeApi)init(window.SpotifyIframeApi);window.onSpotifyIframeApiReady=api=>{window.SpotifyIframeApi=api;init(api)};if(!document.querySelector('script[data-spotify-iframe-api]')){const s=document.createElement('script');s.src='https://open.spotify.com/embed/iframe-api/v1';s.async=true;s.dataset.spotifyIframeApi='1';document.body.appendChild(s)}return()=>{cancelled=true}},[content.music.spotifyArtistUri]);
   const toggle=()=>{const c=controllerRef.current;if(!c)return;playing?c.pause():c.play()};
   const wa=`https://wa.me/${content.booking.whatsapp}?text=${encodeURIComponent('Olá! Gostaria de informações para contratação do show de Lucas Venutto.\n\nCidade:\nData:\nEvento:\nPúblico estimado:')}`;
