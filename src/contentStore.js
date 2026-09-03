@@ -42,6 +42,13 @@ export function getAdminSession(){
   try{return JSON.parse(localStorage.getItem(SESSION_KEY)||'null')}catch{return null}
 }
 
+function storeSession(data){
+  if(!data?.access_token||!data?.user)return null;
+  const session={access_token:data.access_token,refresh_token:data.refresh_token,user:data.user,expires_at:Date.now()+((data.expires_in||3600)*1000)};
+  localStorage.setItem(SESSION_KEY,JSON.stringify(session));
+  return session;
+}
+
 export async function adminLogin(email,password){
   const res=await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`,{
     method:'POST',
@@ -49,10 +56,45 @@ export async function adminLogin(email,password){
     body:JSON.stringify({email,password})
   });
   const data=await res.json();
-  if(!res.ok)throw new Error(data?.error_description||data?.msg||'Login inválido');
-  const session={access_token:data.access_token,refresh_token:data.refresh_token,user:data.user,expires_at:Date.now()+((data.expires_in||3600)*1000)};
-  localStorage.setItem(SESSION_KEY,JSON.stringify(session));
-  return session;
+  if(!res.ok)throw new Error(data?.error_description||data?.msg||data?.message||'Login inválido');
+  return storeSession(data);
+}
+
+export async function adminSignUp(email,password){
+  const res=await fetch(`${SUPABASE_URL}/auth/v1/signup`,{
+    method:'POST',
+    headers:{apikey:SUPABASE_KEY,'Content-Type':'application/json'},
+    body:JSON.stringify({email,password})
+  });
+  const data=await res.json();
+  if(!res.ok)throw new Error(data?.msg||data?.message||data?.error_description||'Não foi possível criar o usuário.');
+  const session=storeSession(data);
+  return {session,user:data?.user||null,needsConfirmation:!session};
+}
+
+export async function checkAdmin(session=getAdminSession()){
+  if(!session?.access_token||!session?.user?.id)return false;
+  const res=await fetch(`${SUPABASE_URL}/rest/v1/lucas_site_admins?user_id=eq.${encodeURIComponent(session.user.id)}&select=user_id`,{
+    headers:{apikey:SUPABASE_KEY,Authorization:`Bearer ${session.access_token}`}
+  });
+  if(!res.ok)return false;
+  const rows=await res.json();
+  return Array.isArray(rows)&&rows.length>0;
+}
+
+export async function bootstrapAdmin(session=getAdminSession()){
+  if(!session?.access_token||!session?.user?.id)throw new Error('Faça login antes de ativar o administrador.');
+  if(await checkAdmin(session))return true;
+  const res=await fetch(`${SUPABASE_URL}/rest/v1/lucas_site_admins`,{
+    method:'POST',
+    headers:{apikey:SUPABASE_KEY,Authorization:`Bearer ${session.access_token}`,'Content-Type':'application/json',Prefer:'return=minimal'},
+    body:JSON.stringify({user_id:session.user.id})
+  });
+  if(!res.ok){
+    const body=await res.text();
+    throw new Error(body||'Este usuário não tem permissão de administrador.');
+  }
+  return true;
 }
 
 export function adminLogout(){localStorage.removeItem(SESSION_KEY)}
