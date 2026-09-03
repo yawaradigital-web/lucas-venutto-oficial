@@ -1,7 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { motion } from 'framer-motion';
-import { Music2, CalendarDays, ArrowUpRight, Menu, X, Play, Mail, MessageCircle } from 'lucide-react';
+import { Music2, CalendarDays, ArrowUpRight, Menu, X, Play, Pause, Mail, MessageCircle } from 'lucide-react';
 import heroPhoto from './_DSC3661.jpg';
 import storyPhoto from './_DSC4037 (1).jpg';
 import featuredVideo from './WhatsApp Video 2026-09-01 at 12.24.27.mp4';
@@ -10,6 +10,7 @@ import headerLogo from './logo lucas venutto.png';
 import './styles.css';
 
 const spotifyUrl='https://open.spotify.com/intl-pt/artist/6ZHnX3OMYw67tBIGVe9UVN?si=sUwUwSoTRO-_I8HXet58RQ';
+const spotifyUri='spotify:artist:6ZHnX3OMYw67tBIGVe9UVN';
 const youtubeUrl='https://www.youtube.com/channel/UCxY-DvH4QjXM2q_FUtffiJg';
 const appleMusicUrl='https://music.apple.com/co/artist/lucas-venutto/6784924650';
 const instagramUrl='https://www.instagram.com/lucasvenutto/';
@@ -19,10 +20,55 @@ const amazonMusicUrl='https://music.amazon.com.br/artists/B0H6Y2XVDR/lucas-venut
 const whatsappUrl='https://wa.me/5511915501487?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20para%20contratar%20o%20show%20do%20Lucas%20Venutto.';
 const pressKitUrl='https://drive.google.com/drive/folders/1JNx44iWZqWPNxk8WLSZbCnwkGLSDgywO';
 const shows=[{day:'12',month:'SET',city:'São Paulo, SP',venue:'Evento / Casa de shows'},{day:'26',month:'SET',city:'Campinas, SP',venue:'Evento / Casa de shows'},{day:'10',month:'OUT',city:'Botucatu, SP',venue:'Evento / Casa de shows'}];
-function InstagramIcon(){return <span aria-label="Instagram" role="img">◎</span>} function YoutubeIcon(){return <span aria-label="YouTube" role="img">▶</span>}
-function App(){const[open,setOpen]=React.useState(false);const fade={initial:{opacity:0,y:28},whileInView:{opacity:1,y:0},viewport:{once:true,amount:.25},transition:{duration:.7}};return <div className="app"><header className="topbar"><a href="#inicio" className="logo headerLogoLink"><img className="headerLogoImg" src={headerLogo} alt="Lucas Venutto"/></a><nav className={open?'nav open':'nav'}><a href="#agenda" onClick={()=>setOpen(false)}>Agenda</a><a href="#musica" onClick={()=>setOpen(false)}>Música</a><a href="#videos" onClick={()=>setOpen(false)}>Vídeos</a><a href="#historia" onClick={()=>setOpen(false)}>História</a><a href="#imprensa" onClick={()=>setOpen(false)}>Imprensa</a><a className="navCta" href={whatsappUrl} target="_blank" rel="noopener noreferrer" onClick={()=>setOpen(false)}>Contrate</a></nav><button className="menuBtn" onClick={()=>setOpen(!open)} aria-label="Menu">{open?<X/>:<Menu/>}</button></header><main>
-<section className="hero" id="inicio"><div className="heroPhoto" style={{backgroundImage:`url(${heroPhoto})`,filter:'brightness(1.13) contrast(1.03) saturate(1.03)'}}/><div className="heroOverlay" style={{background:'linear-gradient(90deg,rgba(3,3,3,.94) 0%,rgba(3,3,3,.76) 23%,rgba(3,3,3,.38) 47%,rgba(3,3,3,.06) 72%,rgba(3,3,3,.18) 100%),linear-gradient(0deg,rgba(5,5,5,.48) 0%,transparent 32%,rgba(0,0,0,.10) 100%)'}}/><div className="heroGlow"/><div className="heroLines"/><motion.div className="heroContent" initial={{opacity:0,y:30}} animate={{opacity:1,y:0}} transition={{duration:.9}}><div className="kicker">SITE OFICIAL</div><img src={artistLogo} alt="Lucas Venutto" style={{display:'block',width:'min(440px,70vw)',height:'auto',maxHeight:'390px',objectFit:'contain',objectPosition:'left center',margin:'-18px 0 14px -10px',filter:'drop-shadow(0 10px 28px rgba(0,0,0,.55))'}}/><p>Uma nova fase. A mesma verdade.</p><div className="heroButtons"><a href={spotifyUrl} target="_blank" rel="noopener noreferrer" className="btn gold">Ouça agora <ArrowUpRight size={16}/></a><a href="#agenda" className="btn outline">Agenda <CalendarDays size={16}/></a></div></motion.div><div className="heroStamp">PRA SEMPRE<br/>COMEÇA AGORA</div><div className="heroScroll">ROLE PARA DESCOBRIR <span>↓</span></div></section>
-<section className="musicTicker" aria-label="Ouça Lucas Venutto e siga nas plataformas"><a className="tickerPlay" href={spotifyUrl} target="_blank" rel="noopener noreferrer" aria-label="Ouvir Lucas Venutto no Spotify"><span className="tickerPlayIcon"><Play size={15} fill="currentColor"/></span><span><small>OUÇA AGORA</small><strong>SPOTIFY</strong></span></a><div className="tickerViewport"><div className="tickerTrack"><span>SOFREDOR À MODA ANTIGA</span><b>•</b><em>Sou um sofredor à moda antiga</em><b>•</b><em>Não lido bem com despedida</em><b>•</b><em>Tem vazio que ocupa espaço demais</em><b>•</b><em>Leva tempo, é que nós chama a saudade no peito, pra ver se dói um pouco menos</em><b>•</b><em>Cês ainda é peixe pequeno</em><b>•</b><em>Quem esqueceu leve é por que nunca amou</em><b>•</b><em>Cês colecionam esquemas e jura que é amor</em><b>•</b><em>Um homem sem uma saudade é só um menino</em><b>•</b><em>Amei, sofri, chorei, não me arrependo disso</em><b>•</b><span>LUCAS VENUTTO</span><b>•</b><span>SOFREDOR À MODA ANTIGA</span><b>•</b><em>Sou um sofredor à moda antiga</em><b>•</b><em>Não lido bem com despedida</em><b>•</b><em>Tem vazio que ocupa espaço demais</em><b>•</b><em>Leva tempo, é que nós chama a saudade no peito, pra ver se dói um pouco menos</em><b>•</b><em>Cês ainda é peixe pequeno</em><b>•</b><em>Quem esqueceu leve é por que nunca amou</em><b>•</b><em>Cês colecionam esquemas e jura que é amor</em><b>•</b><em>Um homem sem uma saudade é só um menino</em><b>•</b><em>Amei, sofri, chorei, não me arrependo disso</em><b>•</b><span>LUCAS VENUTTO</span><b>•</b></div></div><div className="tickerSocials"><span className="followLabel">SIGA</span><a href={instagramUrl} target="_blank" rel="noopener noreferrer">Instagram</a><a href={facebookUrl} target="_blank" rel="noopener noreferrer">Facebook</a><a href={tiktokUrl} target="_blank" rel="noopener noreferrer">TikTok</a><a href={spotifyUrl} target="_blank" rel="noopener noreferrer">Spotify</a><a href={youtubeUrl} target="_blank" rel="noopener noreferrer">YouTube</a><a href={appleMusicUrl} target="_blank" rel="noopener noreferrer">Apple</a><a href={amazonMusicUrl} target="_blank" rel="noopener noreferrer">Amazon</a></div></section>
+function InstagramIcon(){return <span aria-label="Instagram" role="img">◎</span>}
+function YoutubeIcon(){return <span aria-label="YouTube" role="img">▶</span>}
+function App(){
+  const[open,setOpen]=React.useState(false);
+  const[spotifyReady,setSpotifyReady]=React.useState(false);
+  const[spotifyPlaying,setSpotifyPlaying]=React.useState(false);
+  const spotifyController=React.useRef(null);
+  const fade={initial:{opacity:0,y:28},whileInView:{opacity:1,y:0},viewport:{once:true,amount:.25},transition:{duration:.7}};
+
+  React.useEffect(()=>{
+    let cancelled=false;
+    const initSpotify=(IFrameAPI)=>{
+      if(cancelled||spotifyController.current)return;
+      const element=document.getElementById('spotify-embed-controller');
+      if(!element)return;
+      IFrameAPI.createController(element,{uri:spotifyUri,width:'100%',height:80},(controller)=>{
+        if(cancelled)return;
+        spotifyController.current=controller;
+        setSpotifyReady(true);
+        controller.addListener('playback_update',(event)=>{
+          if(event?.data)setSpotifyPlaying(!event.data.isPaused);
+        });
+        try{controller.play();}catch(e){}
+      });
+    };
+    if(window.SpotifyIframeApi) initSpotify(window.SpotifyIframeApi);
+    window.onSpotifyIframeApiReady=(IFrameAPI)=>{
+      window.SpotifyIframeApi=IFrameAPI;
+      initSpotify(IFrameAPI);
+    };
+    if(!document.querySelector('script[data-spotify-iframe-api]')){
+      const script=document.createElement('script');
+      script.src='https://open.spotify.com/embed/iframe-api/v1';
+      script.async=true;
+      script.dataset.spotifyIframeApi='true';
+      document.body.appendChild(script);
+    }
+    return()=>{cancelled=true;};
+  },[]);
+
+  const toggleSpotify=()=>{
+    const controller=spotifyController.current;
+    if(!controller)return;
+    if(spotifyPlaying)controller.pause();else controller.play();
+  };
+
+  return <div className="app"><header className="topbar"><a href="#inicio" className="logo headerLogoLink"><img className="headerLogoImg" src={headerLogo} alt="Lucas Venutto"/></a><nav className={open?'nav open':'nav'}><a href="#agenda" onClick={()=>setOpen(false)}>Agenda</a><a href="#musica" onClick={()=>setOpen(false)}>Música</a><a href="#videos" onClick={()=>setOpen(false)}>Vídeos</a><a href="#historia" onClick={()=>setOpen(false)}>História</a><a href="#imprensa" onClick={()=>setOpen(false)}>Imprensa</a><a className="navCta" href={whatsappUrl} target="_blank" rel="noopener noreferrer" onClick={()=>setOpen(false)}>Contrate</a></nav><button className="menuBtn" onClick={()=>setOpen(!open)} aria-label="Menu">{open?<X/>:<Menu/>}</button></header><main>
+<section className="hero" id="inicio"><div className="heroPhoto" style={{backgroundImage:`url(${heroPhoto})`,filter:'brightness(1.13) contrast(1.03) saturate(1.03)'}}/><div className="heroOverlay" style={{background:'linear-gradient(90deg,rgba(3,3,3,.94) 0%,rgba(3,3,3,.76) 23%,rgba(3,3,3,.38) 47%,rgba(3,3,3,.06) 72%,rgba(3,3,3,.18) 100%),linear-gradient(0deg,rgba(5,5,5,.48) 0%,transparent 32%,rgba(0,0,0,.10) 100%)'}}/><div className="heroGlow"/><div className="heroLines"/><motion.div className="heroContent" initial={{opacity:0,y:30}} animate={{opacity:1,y:0}} transition={{duration:.9}}><div className="kicker">SITE OFICIAL</div><img src={artistLogo} alt="Lucas Venutto" style={{display:'block',width:'min(440px,70vw)',height:'auto',maxHeight:'390px',objectFit:'contain',objectPosition:'left center',margin:'-18px 0 14px -10px',filter:'drop-shadow(0 10px 28px rgba(0,0,0,.55))'}}/><p>Uma nova fase. A mesma verdade.</p><div className="heroButtons"><button type="button" onClick={toggleSpotify} className="btn gold" disabled={!spotifyReady}>{spotifyPlaying?'Pausar':'Ouça agora'} {spotifyPlaying?<Pause size={16}/>:<Play size={16} fill="currentColor"/>}</button><a href="#agenda" className="btn outline">Agenda <CalendarDays size={16}/></a></div></motion.div><div className="heroStamp">PRA SEMPRE<br/>COMEÇA AGORA</div><div className="heroScroll">ROLE PARA DESCOBRIR <span>↓</span></div></section>
+<section className="musicTicker" aria-label="Ouça Lucas Venutto e siga nas plataformas"><button type="button" className="tickerPlay" onClick={toggleSpotify} disabled={!spotifyReady} aria-label={spotifyPlaying?'Pausar Spotify':'Tocar Lucas Venutto no Spotify'}><span className="tickerPlayIcon">{spotifyPlaying?<Pause size={15}/>:<Play size={15} fill="currentColor"/>}</span><span><small>{spotifyPlaying?'TOCANDO AGORA':spotifyReady?'APERTE O PLAY':'CARREGANDO'}</small><strong>SPOTIFY</strong></span></button><div className="spotifyEmbedWrap"><div id="spotify-embed-controller"/></div><div className="tickerViewport"><div className="tickerTrack"><span>SOFREDOR À MODA ANTIGA</span><b>•</b><em>Sou um sofredor à moda antiga</em><b>•</b><em>Não lido bem com despedida</em><b>•</b><em>Tem vazio que ocupa espaço demais</em><b>•</b><em>Leva tempo, é que nós chama a saudade no peito, pra ver se dói um pouco menos</em><b>•</b><em>Cês ainda é peixe pequeno</em><b>•</b><em>Quem esqueceu leve é por que nunca amou</em><b>•</b><em>Cês colecionam esquemas e jura que é amor</em><b>•</b><em>Um homem sem uma saudade é só um menino</em><b>•</b><em>Amei, sofri, chorei, não me arrependo disso</em><b>•</b><span>LUCAS VENUTTO</span><b>•</b><span>SOFREDOR À MODA ANTIGA</span><b>•</b><em>Sou um sofredor à moda antiga</em><b>•</b><em>Não lido bem com despedida</em><b>•</b><em>Tem vazio que ocupa espaço demais</em><b>•</b><em>Leva tempo, é que nós chama a saudade no peito, pra ver se dói um pouco menos</em><b>•</b><em>Cês ainda é peixe pequeno</em><b>•</b><em>Quem esqueceu leve é por que nunca amou</em><b>•</b><em>Cês colecionam esquemas e jura que é amor</em><b>•</b><em>Um homem sem uma saudade é só um menino</em><b>•</b><em>Amei, sofri, chorei, não me arrependo disso</em><b>•</b><span>LUCAS VENUTTO</span><b>•</b></div></div><div className="tickerSocials"><span className="followLabel">SIGA</span><a href={instagramUrl} target="_blank" rel="noopener noreferrer">Instagram</a><a href={facebookUrl} target="_blank" rel="noopener noreferrer">Facebook</a><a href={tiktokUrl} target="_blank" rel="noopener noreferrer">TikTok</a><a href={spotifyUrl} target="_blank" rel="noopener noreferrer">Spotify</a><a href={youtubeUrl} target="_blank" rel="noopener noreferrer">YouTube</a><a href={appleMusicUrl} target="_blank" rel="noopener noreferrer">Apple</a><a href={amazonMusicUrl} target="_blank" rel="noopener noreferrer">Amazon</a></div></section>
 <section className="release section" id="musica"><motion.div className="cover" {...fade}><div className="coverNoise"/><small>NOVO PROJETO</small><strong>PRA SEMPRE<br/>COMEÇA <i>AGORA</i></strong><span>LUCAS VENUTTO</span></motion.div><motion.div className="releaseText" {...fade}><div className="kicker">NOVO PROJETO</div><h2>Pra Sempre<br/><em>Começa Agora</em></h2><p>Uma fase feita de canções que carregam verdade, intensidade e histórias para cantar junto. O projeto que marca o novo capítulo de Lucas Venutto.</p><div className="platforms"><a href={spotifyUrl} target="_blank" rel="noopener noreferrer">Spotify <Music2 size={16}/></a><a href={youtubeUrl} target="_blank" rel="noopener noreferrer">YouTube <YoutubeIcon/></a><a href={appleMusicUrl} target="_blank" rel="noopener noreferrer">Apple Music <ArrowUpRight size={15}/></a><a href={amazonMusicUrl} target="_blank" rel="noopener noreferrer">Amazon Music <ArrowUpRight size={15}/></a></div></motion.div></section>
 <section className="agenda section" id="agenda"><motion.div className="sectionTitle" {...fade}><div><div className="kicker">NA ESTRADA</div><h2>Próximos <em>shows</em></h2></div><p>Agenda oficial de apresentações</p></motion.div><div className="showList">{shows.map((s,i)=><motion.article className="show" key={s.day+s.city} {...fade} transition={{duration:.55,delay:i*.08}}><div className="showDate"><strong>{s.day}</strong><span>{s.month}</span></div><div><h3>{s.city}</h3><p>{s.venue}</p></div><a href={whatsappUrl} target="_blank" rel="noopener noreferrer">Informações <ArrowUpRight size={16}/></a></motion.article>)}</div></section>
 <section className="video" id="videos"><video className="videoBg" src={featuredVideo} autoPlay muted loop playsInline controls/><div className="videoShade"/><motion.div className="videoInner" {...fade}><div className="kicker">AO VIVO</div><h2>Sinta o palco.<br/><em>Viva o momento.</em></h2><a className="play" href={youtubeUrl} target="_blank" rel="noopener noreferrer" aria-label="Ver canal no YouTube"><Play fill="currentColor"/></a></motion.div></section>
