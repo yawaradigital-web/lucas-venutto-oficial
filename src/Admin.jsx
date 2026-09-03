@@ -1,0 +1,37 @@
+import React from 'react';
+import { Save, RotateCcw, Plus, Trash2, ExternalLink, Image, Video, CalendarDays, Music2, Type, Settings, Smartphone } from 'lucide-react';
+import { loadContent, saveContent, resetContent } from './contentStore';
+
+function Field({label,value,onChange,textarea=false,type='text'}){
+  return <label className="adminField"><span>{label}</span>{textarea?<textarea value={value||''} onChange={e=>onChange(e.target.value)}/>:<input type={type} value={value||''} onChange={e=>onChange(e.target.value)}/>}</label>;
+}
+
+export default function Admin(){
+  const[content,setContent]=React.useState(loadContent());
+  const[tab,setTab]=React.useState('geral');
+  const[notice,setNotice]=React.useState('');
+  const patch=(section,key,value)=>setContent(v=>({...v,[section]:{...v[section],[key]:value}}));
+  const save=()=>{saveContent(content);setNotice('Alterações salvas neste navegador.');setTimeout(()=>setNotice(''),2500)};
+  const reset=()=>setContent(resetContent());
+  const addShow=()=>setContent(v=>({...v,shows:[...v.shows,{id:`show-${Date.now()}`,date:'',time:'21:00',city:'',state:'SP',venue:'',address:'',ticketUrl:'',private:false}]}));
+  const updateShow=(i,key,value)=>setContent(v=>({...v,shows:v.shows.map((s,idx)=>idx===i?{...s,[key]:value}:s)}));
+  const removeShow=i=>setContent(v=>({...v,shows:v.shows.filter((_,idx)=>idx!==i)}));
+  const addVideo=()=>setContent(v=>({...v,videos:[...v.videos,{id:`video-${Date.now()}`,title:'',youtubeUrl:'',thumbnailUrl:''}]}));
+  const updateVideo=(i,key,value)=>setContent(v=>({...v,videos:v.videos.map((s,idx)=>idx===i?{...s,[key]:value}:s)}));
+  const removeVideo=i=>setContent(v=>({...v,videos:v.videos.filter((_,idx)=>idx!==i)}));
+  return <div className="adminShell">
+    <aside className="adminSidebar"><div><strong>Lucas Venutto</strong><small>Painel do site</small></div>
+      {[['geral',Settings,'Geral'],['hero',Type,'Hero'],['musica',Music2,'Música'],['agenda',CalendarDays,'Agenda'],['videos',Video,'Vídeos'],['sobre',Image,'Sobre'],['mobile',Smartphone,'Mobile']].map(([id,Icon,label])=><button key={id} className={tab===id?'active':''} onClick={()=>setTab(id)}><Icon size={17}/>{label}</button>)}
+      <a href="/" target="_blank" rel="noreferrer"><ExternalLink size={17}/>Ver site</a>
+    </aside>
+    <main className="adminMain"><header className="adminTop"><div><span className="adminEyebrow">CMS</span><h1>Gerenciar site</h1></div><div className="adminTopActions"><button onClick={reset} className="ghost"><RotateCcw size={16}/>Restaurar</button><button onClick={save} className="primary"><Save size={16}/>Salvar</button></div></header>{notice&&<div className="adminNotice">{notice}</div>}
+      {tab==='geral'&&<section className="adminPanel"><h2>Identidade e contato</h2><div className="adminGrid"><Field label="Nome do artista" value={content.brand.artist} onChange={v=>patch('brand','artist',v)}/><Field label="Slogan" value={content.brand.tagline} onChange={v=>patch('brand','tagline',v)}/><Field label="WhatsApp" value={content.booking.whatsapp} onChange={v=>patch('booking','whatsapp',v)}/><Field label="E-mail" value={content.booking.email} onChange={v=>patch('booking','email',v)}/></div><h3>Redes</h3><div className="adminGrid"><Field label="Instagram" value={content.social.instagram} onChange={v=>patch('social','instagram',v)}/><Field label="TikTok" value={content.social.tiktok} onChange={v=>patch('social','tiktok',v)}/><Field label="YouTube" value={content.social.youtube} onChange={v=>patch('social','youtube',v)}/><Field label="Facebook" value={content.social.facebook} onChange={v=>patch('social','facebook',v)}/></div></section>}
+      {tab==='hero'&&<section className="adminPanel"><h2>Primeira tela</h2><div className="adminGrid"><Field label="Selo superior" value={content.hero.eyebrow} onChange={v=>patch('hero','eyebrow',v)}/><Field label="Título" value={content.hero.title} onChange={v=>patch('hero','title',v)}/><Field label="Subtítulo" value={content.hero.subtitle} onChange={v=>patch('hero','subtitle',v)}/><Field label="Texto botão principal" value={content.hero.primaryLabel} onChange={v=>patch('hero','primaryLabel',v)}/></div></section>}
+      {tab==='musica'&&<section className="adminPanel"><h2>Música</h2><div className="adminGrid"><Field label="Título da seção" value={content.music.title} onChange={v=>patch('music','title',v)}/><Field label="Spotify do artista" value={content.music.spotifyArtistUrl} onChange={v=>patch('music','spotifyArtistUrl',v)}/><Field label="Spotify Embed" value={content.music.spotifyEmbedUrl} onChange={v=>patch('music','spotifyEmbedUrl',v)}/><Field label="Texto de apoio" textarea value={content.music.intro} onChange={v=>patch('music','intro',v)}/></div></section>}
+      {tab==='agenda'&&<section className="adminPanel"><div className="adminPanelHead"><h2>Agenda</h2><button className="smallPrimary" onClick={addShow}><Plus size={15}/>Novo show</button></div>{content.shows.map((s,i)=><div className="adminItem" key={s.id}><div className="adminGrid"><Field label="Data" type="date" value={s.date} onChange={v=>updateShow(i,'date',v)}/><Field label="Hora" type="time" value={s.time} onChange={v=>updateShow(i,'time',v)}/><Field label="Cidade" value={s.city} onChange={v=>updateShow(i,'city',v)}/><Field label="UF" value={s.state} onChange={v=>updateShow(i,'state',v)}/><Field label="Local" value={s.venue} onChange={v=>updateShow(i,'venue',v)}/><Field label="Endereço" value={s.address} onChange={v=>updateShow(i,'address',v)}/><Field label="Link ingresso" value={s.ticketUrl} onChange={v=>updateShow(i,'ticketUrl',v)}/></div><button className="danger" onClick={()=>removeShow(i)}><Trash2 size={15}/>Excluir</button></div>)}</section>}
+      {tab==='videos'&&<section className="adminPanel"><div className="adminPanelHead"><h2>Vídeos</h2><button className="smallPrimary" onClick={addVideo}><Plus size={15}/>Novo vídeo</button></div>{content.videos.map((v,i)=><div className="adminItem" key={v.id}><div className="adminGrid"><Field label="Título" value={v.title} onChange={x=>updateVideo(i,'title',x)}/><Field label="Link YouTube" value={v.youtubeUrl} onChange={x=>updateVideo(i,'youtubeUrl',x)}/><Field label="Thumbnail" value={v.thumbnailUrl} onChange={x=>updateVideo(i,'thumbnailUrl',x)}/></div><button className="danger" onClick={()=>removeVideo(i)}><Trash2 size={15}/>Excluir</button></div>)}</section>}
+      {tab==='sobre'&&<section className="adminPanel"><h2>Sobre e imprensa</h2><Field label="Título sobre" value={content.about.title} onChange={v=>patch('about','title',v)}/><Field label="Biografia curta" textarea value={content.about.text} onChange={v=>patch('about','text',v)}/><Field label="Título imprensa" value={content.press.title} onChange={v=>patch('press','title',v)}/><Field label="Texto imprensa" textarea value={content.press.text} onChange={v=>patch('press','text',v)}/><Field label="Press kit" value={content.press.pressKitUrl} onChange={v=>patch('press','pressKitUrl',v)}/></section>}
+      {tab==='mobile'&&<section className="adminPanel"><h2>Experiência mobile</h2><p className="adminHelp">A versão mobile usa navegação inferior, CTAs grandes, conteúdo em cards verticais e player persistente. O conteúdo é o mesmo do desktop, mas a apresentação é exclusiva.</p><div className="mobilePreview"><div className="phoneMock"><span>{content.hero.eyebrow}</span><strong>{content.hero.title}</strong><small>{content.hero.subtitle}</small><button>▶ {content.hero.primaryLabel}</button></div></div></section>}
+    </main>
+  </div>;
+}
