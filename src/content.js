@@ -9,6 +9,7 @@ export const defaultContent = {
     heroLogoUrl: '',
     heroImageUrl: '',
     storyImageUrl: '',
+    videoCoverUrl: '',
     featuredVideoUrl: ''
   },
   hero: {
@@ -39,23 +40,22 @@ export const defaultContent = {
     title: 'SOFREDOR À MODA ANTIGA',
     lyric: 'Sou um sofredor à moda antiga • Não lido bem com despedida • Tem vazio que ocupa espaço demais • Amei, sofri, chorei, não me arrependo disso'
   },
-  shows: [
-    {id:'show-1',date:'2026-09-12',time:'21:00',city:'São Paulo',state:'SP',venue:'Local a confirmar',address:'Endereço a confirmar',ticketUrl:'',private:false},
-    {id:'show-2',date:'2026-09-26',time:'21:00',city:'Campinas',state:'SP',venue:'Local a confirmar',address:'Endereço a confirmar',ticketUrl:'',private:false},
-    {id:'show-3',date:'2026-10-10',time:'21:00',city:'Botucatu',state:'SP',venue:'Local a confirmar',address:'Endereço a confirmar',ticketUrl:'',private:false}
-  ],
+  shows: [],
   videos: [
     {id:'video-1',title:'Lucas Venutto ao vivo',youtubeUrl:'https://www.youtube.com/channel/UCxY-DvH4QjXM2q_FUtffiJg',thumbnailUrl:''}
   ],
   about: {
     kicker: 'SOBRE',
-    title: 'Voz, estrada e verdade.',
-    text: 'Lucas Venutto transforma vivências em interpretação. No palco, romantismo, modão, sofrência e energia se encontram em um show pensado para criar conexão de verdade com o público.'
+    title: 'Canções que doem. Histórias que ficam.',
+    text: 'Lucas Venutto une romantismo, modão e sofrência em interpretações marcadas por verdade e presença. Sua música nasce de histórias que poderiam ser de qualquer pessoa — amores, despedidas, saudade e recomeços — e ganha força no palco pela conexão direta com o público.'
   },
   press: {
     title: 'Material oficial',
     text: 'Release, fotos em alta resolução, logotipos e informações oficiais para imprensa, contratantes e parceiros.',
-    pressKitUrl: 'https://drive.google.com/drive/folders/1JNx44iWZqWPNxk8WLSZbCnwkGLSDgywO'
+    pressKitUrl: 'https://drive.google.com/drive/folders/1JNx44iWZqWPNxk8WLSZbCnwkGLSDgywO',
+    riderUrl: '',
+    stageMapUrl: '',
+    promoMaterialUrl: 'https://drive.google.com/drive/folders/1JNx44iWZqWPNxk8WLSZbCnwkGLSDgywO'
   },
   booking: {
     title: 'Leve Lucas Venutto para o seu evento.',
